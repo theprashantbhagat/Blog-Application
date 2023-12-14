@@ -44,6 +44,7 @@ public class UserController {
 	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
 		log.info("Entering request for save user data");
 		UserDto createUserDto = this.userService.createUser(userDto);
+		System.out.println(createUserDto);
 		log.info("Completed request for save user data");
 		return new ResponseEntity<>(createUserDto, HttpStatus.CREATED);
 	}

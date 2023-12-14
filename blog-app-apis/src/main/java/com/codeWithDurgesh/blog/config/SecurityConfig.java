@@ -17,11 +17,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.codeWithDurgesh.blog.security.CustomUserDetailService;
 import com.codeWithDurgesh.blog.security.JwtAuthenticationEntryPoint;
 import com.codeWithDurgesh.blog.security.JwtAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebSecurity
+@EnableWebMvc
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    public static final String[] PUBLIC_URLS={
+            "/api/auth/**",
+            "/v3/api-docs",
+            "/v2/api-docs",
+            "/swagger-resources/**",
+            "/swagger-ui/**",
+            "/webjars/**"
+    };
 
     @Autowired
     private CustomUserDetailService customUserDetailService;
@@ -39,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .antMatchers("/api/auth/**")
+                .antMatchers(PUBLIC_URLS)
                 .permitAll()
                 .anyRequest()
                 .authenticated()
